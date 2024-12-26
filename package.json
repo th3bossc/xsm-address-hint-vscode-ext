@@ -20,6 +20,17 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "languages": [
+      {
+        "id": "xsm",
+        "extensions": [
+          ".xsm"
+        ],
+        "aliases": [
+          "XSM"
+        ]
+      }
+    ],
     "commands": [
       {
         "command": "xsm-address-hint.addresshint",
