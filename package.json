@@ -2,7 +2,7 @@
   "name": "xsm-address-hint",
   "displayName": "XSM-ADDRESS-HINT",
   "description": "shows address as hint to xsm code",
-  "publisher": "Diljith P D",
+  "publisher": "DiljithPD",
   "version": "0.0.1",
   "license": "MIT",
   "repository": {
@@ -16,7 +16,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:xsm"
+    "onLanguage:xsm",
+    "onLanguage:xsm-lib"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -28,6 +29,15 @@
         ],
         "aliases": [
           "XSM"
+        ]
+      },
+      {
+        "id": "xsm-lib",
+        "extensions": [
+          ".lib"
+        ],
+        "aliases": [
+          "XSM_LIB"
         ]
       }
     ],

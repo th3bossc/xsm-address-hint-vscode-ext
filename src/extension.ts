@@ -20,9 +20,11 @@ export function activate(context: VsCode.ExtensionContext) {
 			return;
 		}
 
-		if (editor.document.languageId !== 'xsm') {
+		if (editor.document.languageId !== 'xsm' && editor.document.languageId !== 'xsm-lib') {
 			return;
 		}
+
+		const editorLanguage = editor.document.languageId;
 
 		const cursorLine = editor.selection.active.line;
 
@@ -32,7 +34,7 @@ export function activate(context: VsCode.ExtensionContext) {
 			const nonEmptyLineNumber = getNonEmptyLineNumber(editor, cursorLine);
 
 			if (nonEmptyLineNumber !== null) {
-				const addressText = `Address: ${getAddress(nonEmptyLineNumber)}`;
+				const addressText = `Address: ${getAddress(nonEmptyLineNumber, editorLanguage)}`;
 
 				const lineText = editor.document.lineAt(cursorLine).text;
 				if (lineText.trim() !== '') {

@@ -6,6 +6,7 @@ This extension is created to help give line hint suggestions for writing code wi
 ## How to use
 - install the extention
 - change language of the file to `xsm` 
+- to use with library files, change language to `lib`
 
 
 

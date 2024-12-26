@@ -14,7 +14,10 @@ const getNonEmptyLineNumber = (editor: VsCode.TextEditor, lineIndex: number): nu
     return nonEmtpyLineCount - 1;
 };
 
-const getAddress = (lineNumber: number): number => {
+const getAddress = (lineNumber: number, languageId: string): number => {
+    if (languageId === 'xsm-lib') {
+        return lineNumber;
+    }
     if (lineNumber <= HEADER_LENGTH) {
         return START_ADDRESS + lineNumber;
     }
