@@ -1,26 +1,75 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as VsCode from 'vscode';
+import { getAddress, getNonEmptyLineNumber } from './utils';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "xsm-address-hint" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('xsm-address-hint.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from XSM-ADDRESS-HINT!');
+export function activate(context: VsCode.ExtensionContext) {
+	const decorationType = VsCode.window.createTextEditorDecorationType({
+		after: {
+			contentText: '',
+			color: 'gray',
+			fontStyle: 'italic',
+			margin: '0 0 0 1em',
+		},
 	});
 
-	context.subscriptions.push(disposable);
+	let previousLine = -1;
+
+	const updateDecorations = () => {
+		const editor = VsCode.window.activeTextEditor;
+		if (!editor) {
+			return;
+		}
+
+		const cursorLine = editor.selection.active.line;
+
+		if (cursorLine !== previousLine) {
+			editor.setDecorations(decorationType, []);
+
+			const nonEmptyLineNumber = getNonEmptyLineNumber(editor, cursorLine);
+
+			if (nonEmptyLineNumber !== null) {
+				const addressText = `Address: ${getAddress(nonEmptyLineNumber)}`;
+
+				const lineText = editor.document.lineAt(cursorLine).text;
+				if (lineText.trim() !== '') {
+					const range = new VsCode.Range(
+						cursorLine,
+						lineText.length,
+						cursorLine,
+						lineText.length,
+					);
+
+					const decorations: VsCode.DecorationOptions[] = [{
+						range,
+						renderOptions: {
+							after: {
+								contentText: `"${addressText}"`,
+								color: 'gray',
+								fontStyle: 'italic',
+								margin: '0 0 0 1em',
+							}
+						}
+					}];
+
+					editor.setDecorations(decorationType, decorations);
+				}
+			}
+
+			previousLine = cursorLine;
+		}
+	};
+
+
+	const cursorListener = VsCode.window.onDidChangeTextEditorSelection(updateDecorations);
+	const editorListener = VsCode.window.onDidChangeActiveTextEditor(updateDecorations);
+
+	context.subscriptions.push(cursorListener, editorListener);
+
+	updateDecorations();
+
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+
+export function deactivate() { }
+
+
+

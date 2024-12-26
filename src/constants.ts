@@ -1,0 +1,7 @@
+const START_ADDRESS = 2048;
+const HEADER_LENGTH = 8;
+
+export {
+    START_ADDRESS,
+    HEADER_LENGTH,
+}
