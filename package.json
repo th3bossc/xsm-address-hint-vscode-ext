@@ -3,7 +3,7 @@
   "displayName": "XSM-ADDRESS-HINT",
   "description": "shows address as hint to xsm code",
   "publisher": "DiljithPD",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "repository": {
     "type": "git",

@@ -16,7 +16,7 @@ const getNonEmptyLineNumber = (editor: VsCode.TextEditor, lineIndex: number): nu
 
 const getAddress = (lineNumber: number, languageId: string): number => {
     if (languageId === 'xsm-lib') {
-        return lineNumber;
+        return lineNumber * 2;
     }
     if (lineNumber <= HEADER_LENGTH) {
         return START_ADDRESS + lineNumber;
