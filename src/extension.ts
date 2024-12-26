@@ -2,6 +2,7 @@ import * as VsCode from 'vscode';
 import { getAddress, getNonEmptyLineNumber } from './utils';
 
 export function activate(context: VsCode.ExtensionContext) {
+	console.log("Extension Running");
 	const decorationType = VsCode.window.createTextEditorDecorationType({
 		after: {
 			contentText: '',
@@ -16,6 +17,10 @@ export function activate(context: VsCode.ExtensionContext) {
 	const updateDecorations = () => {
 		const editor = VsCode.window.activeTextEditor;
 		if (!editor) {
+			return;
+		}
+
+		if (editor.document.languageId !== 'xsm') {
 			return;
 		}
 
