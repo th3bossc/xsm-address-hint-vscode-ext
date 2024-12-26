@@ -2,6 +2,7 @@
   "name": "xsm-address-hint",
   "displayName": "XSM-ADDRESS-HINT",
   "description": "shows address as hint to xsm code",
+  "publisher": "Diljith P D",
   "version": "0.0.1",
   "license": "MIT",
   "repository": {
@@ -21,8 +22,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "xsm-address-hint.helloWorld",
-        "title": "Hello World"
+        "command": "xsm-address-hint.addresshint",
+        "title": "Address Hint XSM"
       }
     ]
   },
